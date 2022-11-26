@@ -20,7 +20,8 @@ export class UserRepository extends Repository<User> {
             name,
             password
         } = createUserDto;
-        const user = this.create();
+        const user = new User()
+
         user.email = email;
         user.name = name;
         user.password = password;
