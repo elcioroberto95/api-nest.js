@@ -25,6 +25,7 @@ export class UserRepository extends Repository<User> {
         user.name = name;
         user.password = password;
         user.status = true;
+        user.role = role;
         user.confirmationToken = crypto.randomBytes(32).toString('hex');
         user.salt = await bcrypt.genSalt();
         user.password = await this.hashPassword(password, user.salt);
