@@ -12,7 +12,7 @@ export class UsersController {
         const user = await this.usersService.createUserAdmin(createUserDto);
         return {
             user,
-            message: 'Administrador criado com sucesso'
+            message: 'Administrador criado com sucesso' 
         };
     }
 }
