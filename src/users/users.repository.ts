@@ -9,6 +9,7 @@ import { UserRole } from "./user-roles.enum"
 import { User } from "./user.entity"
 import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
+import { CredentialsDto } from "./dtos/credentials.dto"
 
 
 
@@ -52,4 +53,17 @@ export class UserRepository extends Repository<User> {
     private async hashPassword(password: string, hash: string): Promise<string> {
         return bcrypt.hash(password, hash);
     }
+    async checkCredentials(credentialsDto: CredentialsDto): Promise<User> {
+        const { email, password } = credentialsDto;
+
+
+        const user = await this.findOne({ where: { email: email, status: true } });
+
+        if (user && (await user.checkPassword(password))) {
+            return user;
+        } else {
+            return null;
+        }
+    }
+
 }
